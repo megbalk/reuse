@@ -1,0 +1,13 @@
+```R
+#merge species-level data between: eltonian traits, MOM, and panTHERIA
+#load data
+
+pantheria <- read.table(file = "http://esapubs.org/archive/ecol/E090/184/PanTHERIA_1-0_WR05_Aug2008.txt", header = TRUE, sep = "\t")
+mom <- read.table("http://www.esapubs.org/archive/ecol/E084/094/MOMv3.3.txt", header = TRUE, sep = "\t")
+eltonian <- read.table(file = "http://www.esapubs.org/archive/ecol/E095/178/MamFuncDat.txt", header = TRUE, sep = "\t")
+
+#match names (including synonyms)
+
+
+
+```
