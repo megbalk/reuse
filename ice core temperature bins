@@ -1,0 +1,23 @@
+```R
+data <- read.table("data.csv", sep = ",", header = TRUE)
+tempRecord <- read.table("tempRecord.csv", sep = ",", header = TRUE)
+
+#binned in 100-years
+tempRecord$Century <- tempRecord$Age %/% 100
+tempRecord_bin <- ddply(tempRecord, 'Century', function(.df){
+  bintemp <- mean(.df$temperature_column)
+  N <- length(.df$temperature_column)
+  ret <- data.frame(bintemp, N)
+})
+
+data_tempBin <- ddply(data, 'index', function(.df){
+  .age <- .df$Age #make it easier to call the calendar age multiple times
+  #+/- 50 years around record date (to match bins in tempRecord
+  .temp <- subset(tempRecord, tempRecord$Age < .age + 50 & tempRecord$Age > .age - 50, na.rm = TRUE)$temperature_column #making a data frame, $ calls the column I want (select creates a dataframe as well, not a vector)
+  .df$estTemp <- mean(.temp)  
+  .df$N <- length(.temp)
+  #print(.df) #prints line by line
+  #browser() #can check that your data is right
+  .df
+})
+```R
